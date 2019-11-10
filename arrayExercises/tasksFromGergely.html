@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 1. Írasd ki egy tetszőleges elemszámú, csak egész számokat tartalmazó tömb legkisebb elemét!
+
+    let firstArr = [78, 2, 3, 23, 5, 34, 2, 5, 8];
+    console.log(firstArr)
+    let smallestValue = firstArr[0];
+
+    firstArr.filter(item => {
+      item < smallestValue ? smallestValue = item : smallestValue;
+    })
+    console.log(smallestValue)
+
+    // ===== legkisebb elem ES6 - Math.min + spread operator =====
+
+    console.log(Math.min(...firstArr))
+
+    // 2. Írasd ki egy tetszőleges elemszámú, csak egész számokat tartalmazó tömb legnagyobb elemét!
+
+    let greatestValue = firstArr[0];
+
+    firstArr.filter(item => {
+      item > greatestValue ? greatestValue = item : greatestValue;
+    })
+    console.log(greatestValue)
+
+    // ===== legnagyobb elem ES6 - Math.max + spread operator =====
+
+    console.log(Math.max(...firstArr))
+
+    // 3. Írasd ki egy tetszőleges elemszámú, csak egész számokat tartalmazó tömb átlagát!
+
+    let avg = 0;
+    let sum = 0;
+    for (i = 0; i < firstArr.length; i += 1) {
+      sum += firstArr[i]
+      avg = sum / firstArr.length;
+    }
+    console.log(avg)
+
+    // ===== átlag - forEach =====
+    let average;
+    let sumItems = 0;
+
+    firstArr.forEach((item) => {
+
+      sumItems += item;
+      average = sumItems / firstArr.length;
+
+    })
+    console.log(average)
+
+    // ===== átlag ES6 - reduce() =====
+
+    const avgES6 = arr => arr.reduce((acc, curr) => acc + curr) / arr.length;
+    const result = avgES6(firstArr)
+
+    console.log(result)
+
+    // 4. Írasd ki egy tetszőleges elemszámú, csak egész számokat tartalmazó tömb összegét!
+
+    let sumES6 = 0;
+    firstArr.reduce((accumulator, currentValue, currIdx, arr) => {
+      sumES6 = accumulator + currentValue
+      return sumES6;
+    });
+    console.log(sumES6)
+
+    // 5. Írasd ki egy tetszőleges elemszámú, csak egész számokat tartalmazó tömb páros elemeinek a számát!
+
+    let evens = firstArr.filter(item => {
+      return item % 2 === 0
+    })
+    console.log(evens, evens.length)
+
+
+    // 6. Írasd ki egy tetszőleges elemszámú, csak egész számokat tartalmazó tömb második legkisebb elemét!
+
+    let filtered = firstArr
+      .filter((item, index) => firstArr
+        .indexOf(item) === index)
+      .sort((a, b) => {
+        return a - b
+      })
+    console.log(filtered)
+
+    const minNumber = Math.min(...filtered);
+
+    // legkisebb
+    console.log(minNumber);
+    console.log(filtered[0]);
+
+    filtered.splice(filtered.indexOf(minNumber), 1);
+
+    //második legkisebb
+    console.log(Math.min(...filtered))
+    console.log(filtered[0]);
+
+    // harmaddik legkisebb
+    console.log(filtered[1]);
+
+    // negyedik legkisebb... stb.
+    console.log(filtered[2]);
+
+
+    // 7. Írasd ki egy tetszőleges elemszámú, csak egész számokat tartalmazó tömb harmadik legnagyobb elemét!
+
+    let filteredForThirdMax = firstArr
+      .filter((item, index) => firstArr
+        .indexOf(item) === index)
+      .sort((a, b) => {
+        return a - b
+      })
+    console.log(filteredForThirdMax)
+
+    let thirdMax = filteredForThirdMax[2]
+    console.log(thirdMax)
+
+    // ===== 3. legnagyobb elem ES6 - Set =====
+
+    console.log(firstArr);
+    let setFirstArray = [...new Set(firstArr)]
+      .sort((a, b) => {
+        return a - b
+      });
+    console.log(setFirstArray[2])
+
+    // 8. Írd ki (igen vagy nem), hogy egy tetszőlegese elemszámú, bármilyen típusú elemeket tartalmazó tömb (feltételezzük, hogy beágyazott tömböt, objektumot nem tartalmaz) tartalmazza e a 23-as számot! Használj lineáris keresést!
+
+    let requestedNumber = 23;
+    let searchResult = "nincs találat";
+    for (i = 0; i < firstArr.length; i += 1) {
+      if (firstArr[i] === requestedNumber) {
+        searchResult = "találat";
+      }
+    }
+    console.log(searchResult);
+    console.log(firstArr);
+
+    // ===== keresés - indexOf() =====
+    let er = "nincs"
+    let searched = firstArr.indexOf(23);
+    if (searched > -1) {
+      er = "van"
+    }
+    console.log(er)
+
+    // ====== keresés - filter + indexOf() ======
+
+    let erfilter = "nincs"
+    let na = firstArr.filter(item => {
+      firstArr.indexOf(23) > -1 ? erfilter = "mégis" : erfilter;
+    })
+    console.log(erfilter);
+
+    // 9. Írd ki (igen vagy nem), hogy egy tetszőlegese elemszámú, bármilyen típusú elemeket tartalmazó tömb (feltételezzük, hogy beágyazott tömböt, objektumot nem tartalmaz) tartalmazza e a 23-as számot! Használj logaritmikus keresést!
+
+    function binarySearch(array, target) {
+
+      array.sort((a, b) => {
+        return a - b
+      });
+      console.log("Sorted array: " + array)
+
+      let startIndex = 0;
+      let endIndex = array.length - 1;
+
+      while (startIndex <= endIndex) {
+
+        let middleIndex = Math.floor((startIndex + endIndex) / 2);
+
+        if (target === array[middleIndex]) {
+          return console.log(target + " was found at index " + middleIndex);
+        }
+        if (target > array[middleIndex]) {
+          console.log("Searching the right side of array")
+          startIndex = middleIndex + 1;
+        }
+        if (target < array[middleIndex]) {
+          console.log("Searching the left side of array")
+          endIndex = middleIndex - 1;
+        } else {
+          console.log("Not Found this loop iteration. Looping another iteration.")
+        }
+      }
+      console.log(target + " not found in array");
+    }
+    binarySearch(firstArr, 23);
+
+    // 10. Írd ki, hogy egy tetszőlegese elemszámú, bármilyen típusú elemeket tartalmazó tömb (feltételezzük, hogy beágyazott tömböt, objektumot nem tartalmaz) hányszor tartalmazza a 23-as számot!
+
+    function presenceOfNumberInArray(array, number) {
+      let resultArr = [];
+      let message = "number not found"
+
+      array.forEach(item => {
+
+        if (item === number) {
+          resultArr.push(item);
+          message = number + " was found " + resultArr.length + " times."
+        }
+      })
+      console.log(message)
+    }
+    presenceOfNumberInArray(firstArr, 23);
+
+
+    // 11. Rendezd a javított buborékos rendezés algoritmus segítségével egy tetszőleges elemszámú, csak lebegőpontos számokat tartalmazó tömb elemeit növekvő sorrendbe! Írasd ki a rendezett tömböt!
+
+    const float = [1.34, 3.547, 0.87, 1.2, 9.78, 65.346];
+
+    const bubbleSort = arr => {
+      let swapped;
+      do {
+        swapped = false;
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] > arr[i + 1]) {
+            let tmp = arr[i];
+            arr[i] = arr[i + 1];
+            arr[i + 1] = tmp;
+            swapped = true;
+          }
+        }
+      } while (swapped);
+      return arr;
+    }
+    console.log(bubbleSort(float));
+
+    // 12. Rendezd a javított buborékos rendezés algoritmus segítségével egy tetszőleges elemszámú, beágyazott tömb, és objektum kivételével bármilyen típusú elemeket tartalmazó tömb elemeit csökkenő sorrendbe! A nem szám típusú elemeket rakd a tömb végére az eredeti sorrendbe. Írasd ki a rendezett tömböt!
+
+    const mixedArr = ["string", 5, 6.56, true, 89, 32, 4, "notNumber"];
+
+    const bubbleSort2 = arr => {
+      let swapped;
+      let splicedArray = [];
+
+      arr.forEach((item, index) => {
+        return typeof item !== 'number' ? arr.splice(index, 1) && splicedArray.push(item) : item;
+      })
+      console.log(arr)
+      console.log(splicedArray)
+
+      do {
+        swapped = false;
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] < arr[i + 1]) {
+            let tmp = arr[i];
+            arr[i] = arr[i + 1];
+            arr[i + 1] = tmp;
+            swapped = true;
+          }
+        }
+      } while (swapped);
+
+      splicedArray.forEach(item => {
+        return arr.push(item)
+      })
+      return arr;
+    }
+    console.log(bubbleSort2(mixedArr));
+
+    // 13. Adott egy tetszőleges elemszámú, csak egész számokat tartalmazó tömb. A tömb elemeit rendezzük növekvő sorrendbe. Ezután a felhasználótól kérjünk be egy számot (addig kérjünk be értéket, míg valóban egy véges egész számot ad meg). A számot szúrjuk be a tömbbe úgy, hogy a tömb továbbra is rendezett maradjon, tehát a megfelelő indexű helyre kerüljön be a plusz elem. Írasd ki a rendezett tömböt!
+
+    // const arrForSort = [1, 7, 56, 3, 21, 17, 57, 12, 71];
+
+    // const sortingAndPushing = arr => {
+    // arr.sort((a, b) => { return a - b })
+    // console.log(arrForSort)
+    // let newNumber = prompt('Írj be egy véges egész számot!');
+
+    // while(!isFinite(newNumber)) {
+    //     newNumber = prompt('Véges számot írj be!')
+    //     continue
+    //   }
+
+    // newNumber = parseInt(newNumber)
+    // console.log(newNumber)
+
+    // if (newNumber >= arr[arr.length - 1]) {
+    //   arr.push(newNumber)
+    // } else {
+    //   for (i = 0; i < arr.length; i += 1) {
+    //     if (newNumber < arr[i]) {
+    //       arr.splice(i, 0, newNumber)
+    //       break
+    //     }
+    //   }
+    // }
+    // console.log(arr)
+    // }
+    // sortingAndPushing(arrForSort)
+
+    // 14. Adott egy tömb, mely azonos darabú egész számot, és szöveget tartalmaz véletlenszerű sorrendben. Rendezzük úgy a tömböt, hogy minden szám után egy string következzen! Írasd ki a rendezett tömböt!
+
+    const stringNumberMix = ['string', 56, 47, 'cica', 2, 9, 15, 'lila', 'eper', 91, 'kicsi', 'az'];
+
+    function stringsAndNumbersSubsequently(arr) {
+      let numbers = [];
+      let strings = [];
+
+      for (i = 0; i < arr.length; i += 1) {
+        if (typeof arr[i] === 'number') {
+          numbers.push(arr[i])
+        } else {
+          strings.push(arr[i])
+        }
+      }
+
+      arr.length = 0;
+
+      for (i = 0; i < numbers.length; i += 1) {
+        arr.push(numbers[i])
+
+        for (j = 0; j < strings.length; j += 1) {
+          arr.push(strings[j])
+          strings.shift()
+          break
+        }
+      }
+
+      console.log(arr);
+
+    }
+    stringsAndNumbersSubsequently(stringNumberMix)
+
+    // 15. Adott egy tetszőleges pozitív egész számokat tartalmazó tömb.  Válogassuk szét külön egy paros, és paratlan nevezetű tömbbe a páros, és páratlan számokat! Írjuk ki a 2 tömböt!
+
+    const evenAndOdd = [1, 3, 6, 8, 23, 56, 22, 95, 100];
+
+    function sortEvensAndOdds(arr) {
+
+      const evens = [];
+      const odds = [];
+
+      arr.forEach(item => {
+        item % 2 === 0 ? evens.push(item) : odds.push(item);
+      })
+      console.log(evens);
+      console.log(odds);
+    }
+    sortEvensAndOdds(evenAndOdd);
+
+
+    // 16. Adott két azonos elemszámú, csak egész számokat tartalmazó tömb. Külön tömbökbe készítsük el a két tömb: metszetét, unióját, különbségét, és descartes szorzatát. Írassuk ki az új tömböket! 
+
+    // metszet
+
+    const arrFirst = [1, 6, 23, 15, 685, 3, 9, 17, 23];
+    const arrSecond = [4, 7, 32, 9, 15, 5, 2, 23, 12];
+
+    function intersection(arr1, arr2) {
+      const arrIntersect = [];
+
+      for (i = 0; i < arr1.length; i += 1) {
+        let j = 0;
+        while (j < arr2.length && arr1[i] !== arr2[j]) {
+          j += 1;
+          if (arr1[i] === arr2[j]) {
+            arrIntersect.push(arr1[i]);
+          }
+        }
+      }
+      const finalArrIntersectWithoutDuplicates = arrIntersect
+        .filter((item, index) => arrIntersect
+          .indexOf(item) === index);
+
+      console.log(finalArrIntersectWithoutDuplicates)
+    }
+
+    intersection(arrFirst, arrSecond);
+
+    // ===== metszet ES6 =====
+
+    let secondIntersection = arrFirst.filter(item => arrSecond.includes(item));
+    console.log(secondIntersection);
+
+    // unió
+
+    function union(arr1, arr2) {
+
+      const arrUnion = [];
+
+      for (i = 0; i < arr1.length; i += 1) {
+        arrUnion.push(arr1[i])
+      }
+
+      for (i = 0; i < arr2.length; i += 1) {
+        let j = 0;
+        while (j < arr1.length && arr1[j] !== arr2[i]) {
+          j += 1;
+
+          if (j = arr1.length) {
+            arrUnion.push(arr2[i])
+          }
+        }
+      }
+      const finalArrUnionWithoutDuplicates = arrUnion
+        .filter((item, index) => arrUnion
+          .indexOf(item) === index)
+      console.log(finalArrUnionWithoutDuplicates)
+    }
+    union(arrFirst, arrSecond);
+
+    // ===== unió ES6 - spread operator =====
+
+    const unionES6 = [...arrFirst, ...arrSecond];
+    console.log(unionES6);
+
+    // ===== unió ES6 - spread operator + Set =====
+
+    const unionES6WithSet = [...new Set([...arrFirst, ...arrSecond])];
+    console.log(unionES6WithSet);
+
+    // descartes-szorzat
+
+    const process = (one, two) => [one, two].join(";");
+
+    const product = arrFirst.reduce((result, one) => result.concat(arrSecond.map(two => process(one, two))), []);
+
+    console.log(product);
+
+    // különbség
+
+    const difference = arrFirst.filter(item => !arrSecond.includes(item));
+    console.log(difference);
+
+    // ===== szimmetrikus különbség =====
+
+    const symmetricDifference = arrFirst.filter(item => !arrSecond.includes(item)).concat(arrSecond.filter(item => !
+      arrFirst
+      .includes(item)));
+    console.log(symmetricDifference);
+
+    // ===== szimmetrikus különbség - oldschool version =====
+
+    function symmetricDiff(a1, a2) {
+      var result = [];
+      for (var i = 0; i < a1.length; i++) {
+        if (a2.indexOf(a1[i]) === -1) {
+          result.push(a1[i]);
+        }
+      }
+      for (i = 0; i < a2.length; i++) {
+        if (a1.indexOf(a2[i]) === -1) {
+          result.push(a2[i]);
+        }
+      }
+      return console.log(result);
+    }
+    symmetricDiff(arrFirst, arrSecond);
+  </script>
+</body>
+
+</html>

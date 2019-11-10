@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ===== .map() =====
+
+        // What you have
+        var officers = [{
+                id: 20,
+                name: 'Captain Piett'
+            },
+            {
+                id: 24,
+                name: 'General Veers'
+            },
+            {
+                id: 56,
+                name: 'Admiral Ozzel'
+            },
+            {
+                id: 88,
+                name: 'Commander Jerjerrod'
+            }
+        ];
+
+        // What you need
+
+        [20, 24, 56, 88]
+
+        var officersIds = [];
+        officers.forEach(function (officer) {
+            officersIds.push(officer.id);
+        });
+
+        var officersIds = officers.map(function (officer) {
+            return officer.id
+        });
+
+        const officersIds = officers.map(officer => officer.id);
+        </script>
+</body>
+
+</html>
