@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    ﻿/* ÖSSZEGZÉS
+a tömb elemeinek összege
+*/
+
+var tomb = [1,3,6,8,34,67];
+
+var osszeg = 0;
+
+for (i = 0; i < tomb.length; i++){
+  osszeg = osszeg + tomb[i];
+}
+
+console.log(osszeg);
+
+
+
+
+/* MEGSZÁMOLÁS
+egy tömbben hány elem nagyobb egy vizsgált értéknél
+*/
+
+var tomb2 = [3,5,13,8,15,9];
+
+var vizsgalt = 7;
+var szamlalo = 0;
+
+for (i = 0; i < tomb2.length; i++) {
+  if (tomb2[i] > vizsgalt)
+  szamlalo++;
+}
+console.log(szamlalo);
+
+
+
+
+/* ELDÖNTÉS
+Ha megvan a keresendő elem a tömbben, a js azonnal kilép a ciklusból, így az "i" értéke nem nő tovább. A zero based index miatt az "i" segédváltozó értéke eggyel kisebb lesz, mint a tömb hossza, tehát az i < tomb3 állítás igaz lesz akkor is, ha a keresendő elem a tömb utolsó eleme.
+*/
+
+var tomb3 = [1,3,15,8,4,12,23];
+
+var keresendo = 8;
+
+var i = 0;
+
+while (i < tomb3.length && tomb3[i] != keresendo) {
+  i++;
+}
+if (i < tomb3.length){
+  console.log('Találat!');
+}
+else {
+  console.log('Nincs találat!');
+}
+
+
+
+
+/* KIVÁLASZTÁS
+a keresett elem hányadik helyen áll a tömbben
+*/
+
+var tomb4 = [1,4,65,23,5,9];
+
+var keresett = 65;
+var i = 0;
+
+while (tomb4[i] != keresett && i < tomb4.length)
+  i++;
+
+var eredmeny = i+1;
+console.log(eredmeny);
+
+
+
+
+/* KERESÉS
+a keresett elem a tömbben van-e
+*/
+
+var tomb5 = [1,4,65,23,5,9];
+
+var keresett1 = 6;
+var i = 0;
+
+while (tomb5[i] != keresett1 && i < tomb5.length)
+  i++;
+
+
+if (i < tomb5.length){
+  console.log('Találat!: ' + (i+1) + '.');
+}
+else {
+  console.log('Nincs találat!');
+}
+
+
+
+
+/* KIVÁLOGATÁS
+a 6-nál nagyobb értékű elemek kerülnek külön tömbbe
+*/
+
+var tomb6 = [2,3,5,8,45,87,4];
+var meret = tomb6.length;
+var ujTomb = [];
+var j = 0;
+
+for (i=0; i<meret; i++) {
+  if (tomb6[i] > 6) {
+    ujTomb[j++] = tomb6[i];
+  } 
+}
+
+var ujTombMeret = j;
+console.log(j);
+console.log(tomb6);
+console.log(ujTomb);
+
+
+function listaz(lista){
+var result = [];
+for (i=0; i<lista.length; i++){
+  result = result + (i+1) + '. ' + lista[i] + '\n';
+}
+  return result; 
+}
+var regi = listaz(tomb6);
+var uj = listaz(ujTomb);
+console.log(regi, uj);
+
+
+
+
+/* SZÉTVÁLOGATÁS
+adtok szétszortírozása egy tömbből több másik tömbbe
+
+
+var tomb7 = [1,2,3,4,5,6,7,8,9,10];
+var tomb71 = [];
+var tomb72 = [];
+
+var meret = tomb7.length;
+
+var j = 0;
+var k = 0;
+
+for (i = 0; i < meret; i++)
+  if (tomb7[i] > 5)
+    tomb71[j++] = tomb7[i];
+
+  else
+    tomb72[k++] = tomb7[i];
+
+    
+   //Ellenőrzés
+    
+for (i = 0; i < tomb7.length; i++);
+console.log(tomb7[i]);
+
+for (i = 0; i < tomb71.length; i++);
+console.log(tomb71[i]);
+
+for (i = 0; i < tomb72.length; i++);
+console.log(tomb72[i]);
+*/
+
+
+/* MINIMUM ÉS MAXIMUM KIVÁLASZTÁS
+melyik egy tömb legkisebb/legnagyobb eleme
+*/
+
+var tomb8 = [2,3,4,5,1,6,7,8,9,10];
+
+var min = tomb8[0];
+
+for (i=0; i<tomb8.length; i++)
+  if (tomb8[i]< min)
+    min = tomb8[i];
+
+console.log(min);
+
+var max = tomb8[0];
+
+for (i=0; i<tomb8.length; i++)
+  if (tomb8[i]> max)
+    max = tomb8[i];
+
+console.log(max);
+
+
+
+
+/* METSZET
+két tömb megegyező elemei
+*/
+
+var tomb9 = [1,4,6,32,7,9,12,34,8];
+var meret9 = tomb9.length;
+var tomb10 = [4,5,14,56,25,7,35];
+var meret10 = tomb10.length;
+var metszetTomb = [];
+
+var m;
+var n = 0;
+
+for (i=0; i<meret9; i++){
+  m = 0;
+  while (m<meret10 && tomb10[m] != tomb9[i])
+    m++;
+   if (m<meret10) {
+     metszetTomb[n++] = tomb9[i];
+   }
+}
+
+// Ellenőrzés
+
+for (z=0; z<metszetTomb.length; z++)
+  console.log(metszetTomb[z]);
+
+
+
+
+/* UNIÓ
+két tömb egymással nem egyező elemeiből álló harmadik tömb
+*/
+
+var tomb11 = [1,4,6,32,7,9,12,34,8];
+var meret11 = tomb11.length;
+var tomb12 = [4,5,14,56,25,7,35];
+var meret12 = tomb12.length;
+var tombUnio = [];
+
+for (i=0; i<meret11; i++){
+  tombUnio[i] = tomb11[i];
+}
+
+var p = meret11;
+
+for (s=0; s<meret12; s++){
+  
+  var i = 0;
+  
+  while (i<meret11 && tomb11[i] != tomb12[s])
+    i++;
+  
+    if (i=meret11) {
+    tombUnio[p++] = tomb12[s];
+  }
+}
+
+// Ellenőrzés
+
+for (x=0; x<tombUnio.length; x++) 
+  console.log(tombUnio[x]);
+    </script>
+</body>
+</html>
